@@ -55,6 +55,17 @@ def predict():
 		my_prediction = clf.predict(vect)
 	return render_template('result.html',prediction = my_prediction)
 
+@app.route('/predictappian',methods=['POST'])
+def predict_appian_call():
+    message = request.args.get('textmessage')
+    data = [message]
+    vect = cv.transform(data).toarray()
+    my_prediction = clf.predict(vect)
+    if my_prediction == 1:
+        return "Spam"
+    else:
+        return "Not Spam"
+    
 
 
 if __name__ == '__main__':
